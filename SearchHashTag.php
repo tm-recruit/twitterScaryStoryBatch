@@ -22,7 +22,7 @@ $lang = $conf['lang'];
 $connection = new TwistOAuth($consumer_key, $consumer_secret, $access_token, $access_token_secret);
 
 // ハッシュタグによるツイート検索
-$hash_params = ['q' => $query ,'count' => $count, 'lang'=> $lang];
+$hash_params = array('q' => $query ,'count' => $count, 'lang'=> $lang);
 $tweets = $connection->get('search/tweets', $hash_params)->statuses;
 
 foreach ($tweets as $tweet) {
