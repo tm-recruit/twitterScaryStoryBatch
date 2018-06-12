@@ -19,11 +19,12 @@ $access_token_secret = $conf['access_token_secret'];
 $query = $conf['hash_tag'];
 $count = $conf['get_count'];
 $lang = $conf['lang'];
+$mode = $conf['mode'];
 
 $connection = new TwistOAuth($consumer_key, $consumer_secret, $access_token, $access_token_secret);
 
 // ハッシュタグによるツイート検索
-$hash_params = array('q' => $query ,'count' => $count, 'lang'=> $lang, 'tweet_mode'=> 'extended');
+$hash_params = array('q' => $query ,'count' => $count, 'lang'=> $lang, 'tweet_mode'=> $mode);
 $tweets = $connection->get('search/tweets', $hash_params)->statuses;
 
 foreach ($tweets as $tweet) {
