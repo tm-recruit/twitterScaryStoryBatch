@@ -24,7 +24,7 @@ $mode = $conf['mode'];
 $connection = new TwistOAuth($consumer_key, $consumer_secret, $access_token, $access_token_secret);
 
 // ハッシュタグによるツイート検索
-$hash_params = array('q' => $query ,'count' => $count, 'lang'=> $lang, 'tweet_mode'=> $mode);
+$hash_params = array('q' => $query ,'count' => $count, 'lang'=> $lang, 'tweet_mode' => $mode);
 $tweets = $connection->get('search/tweets', $hash_params)->statuses;
 
 foreach ($tweets as $tweet) {
@@ -33,6 +33,10 @@ foreach ($tweets as $tweet) {
 	$name = $user->name . '@' . $user->screen_name;
 	// "を""に変換
 	$text = str_replace('"', '""', $tweet->full_text);
+	//文字をコマンドラインに出力（必要になったらコメントアウトを外せば出力される）
+	//$text = mb_convert_encoding($text,"UTF-8","auto");
+	//print_r($text);
+	//---
 	$rt = $tweet->retweet_count;
 	$like = $tweet->favorite_count;
 	$sep = '","';
@@ -41,7 +45,9 @@ foreach ($tweets as $tweet) {
 	$data .= "\n" . $record;
 }
 
-echo count($tweets);
+//ツイートの件数取得
+//echo count($tweets)
+//---
 $data = mb_convert_encoding($data,"SJIS","UTF-8");
 
 // CSVファイルへ書き込み
