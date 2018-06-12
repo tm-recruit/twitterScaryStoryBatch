@@ -16,7 +16,7 @@ $consumer_key = $conf['consumer_key'];
 $consumer_secret = $conf['consumer_secret'];
 $access_token = $conf['access_token'];
 $access_token_secret = $conf['access_token_secret'];
-$query = $conf['hash_tag'];
+$hash_tag = $conf['hash_tag'];
 $count = $conf['get_count'];
 $lang = $conf['lang'];
 $mode = $conf['mode'];
@@ -24,6 +24,7 @@ $mode = $conf['mode'];
 $connection = new TwistOAuth($consumer_key, $consumer_secret, $access_token, $access_token_secret);
 
 // ハッシュタグによるツイート検索
+$query = $hash_tag . " exclude:retweets since:" . date("Y-m-d" , strtotime("-1 day"));
 $hash_params = array('q' => $query ,'count' => $count, 'lang'=> $lang, 'tweet_mode' => $mode);
 $tweets = $connection->get('search/tweets', $hash_params)->statuses;
 
