@@ -1,5 +1,8 @@
 <?php
 
+// タイムゾーン設定
+date_default_timezone_set('Asia/Tokyo');
+
 // twistoauth の読み込み
 require 'TwistOAuth.phar';
 
@@ -21,6 +24,7 @@ $count = $conf['get_count'];
 $lang = $conf['lang'];
 $mode = $conf['mode'];
 
+// よくわからないけど認証してる
 $connection = new TwistOAuth($consumer_key, $consumer_secret, $access_token, $access_token_secret);
 
 // ハッシュタグによるツイート検索
@@ -28,6 +32,7 @@ $query = $hash_tag . " exclude:retweets since:" . date("Y-m-d" , strtotime("-1 d
 $hash_params = array('q' => $query ,'count' => $count, 'lang'=> $lang, 'tweet_mode' => $mode);
 $tweets = $connection->get('search/tweets', $hash_params)->statuses;
 
+// 検索結果を1行ごとに整形 
 foreach ($tweets as $tweet) {
 	$timestamp = $tweet->created_at;
 	$user = $tweet->user;
